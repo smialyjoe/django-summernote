@@ -49,10 +49,9 @@ $(function() {
                     })
                     .success(function (result, textStatus, jqXHR) {
                         data = $.parseJSON(result);
-                        $.each(data.files, function (index, file) {                            
-                            sn.summernote("insertImage", file.url, function(img){
-                                console.log(img);
-                                img.attr('data-id', file.id)
+                        $.each(data.files, function (index, file) {
+                            sn.summernote("insertImage", file.url, function(images){
+                                $(images[0]).attr('data-id', file.id);
                             });
                         });
                     })
