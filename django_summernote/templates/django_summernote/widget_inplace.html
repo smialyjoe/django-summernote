@@ -41,7 +41,7 @@ $(function() {
                 // custom attachment data
                 var attachmentData = {{ id }}_textarea.dataset;
                 imageInput.fileupload();
-                var jqXHR = imageInput.fileupload('send', 
+                var jqXHR = imageInput.fileupload('send',
                     {
                         files: files,
                         formData: $.extend({csrfmiddlewaretoken: csrftoken}, attachmentData),
@@ -49,8 +49,11 @@ $(function() {
                     })
                     .success(function (result, textStatus, jqXHR) {
                         data = $.parseJSON(result);
-                        $.each(data.files, function (index, file) {
-                            sn.summernote("insertImage", file.url);
+                        $.each(data.files, function (index, file) {                            
+                            sn.summernote("insertImage", file.url, function(img){
+                                console.log(img);
+                                img.attr('data-id', file.id)
+                            });
                         });
                     })
                     .error(function (jqXHR, textStatus, errorThrown) {
